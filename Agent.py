@@ -1,12 +1,25 @@
-import random as rand
-import numpy as np
 import Constants
+import numpy as np
+
+
+def _default_fitness():
+    return np.random.normal(Constants.DEFAULT_FITNESS_MEAN, Constants.DEFAULT_FITNESS_STD, None)
+
+
+def _default_inheritance():
+    return np.random.normal(Constants.DEFAULT_FITNESS_MEAN, Constants.DEFAULT_FITNESS_STD, None)
+
 
 class Agent:
-    def __init__(self,):
-        self.fitness = 0
-        self.assets_initial = 0
+    def __init__(self, agent_id, fitness=_default_fitness(), inheritance=_default_inheritance()):
+        self.id = agent_id
+        self.fitness = fitness
+        self.earnings = 0
+        self.assets_initial = inheritance
         self.assets_final = 0
+
+    def __str__(self):
+        return str(self.id)
 
     def provide_gamete(self):
         gamete_fitness = np.random.normal(self.fitness, Constants.GAMETE_FITNESS_STD, None)
@@ -17,15 +30,16 @@ class Agent:
         return provided_inheritance
 
     def grow_old(self):
-        investments = self._exploit_assets()
+        self.assets_final = self._exploit_inheritance()
+        self.earnings = self._exploit_fitness()
 
-    def _exploit_assets(self):
-        accumulated_investments = self.assets_initial * (1 + Constants.AVERAGE_ASSET_RETURN) ** Constants.AVERAGE_ASSET_LIFESPAN
+    def _exploit_inheritance(self):
+        accumulated_investments = self.assets_initial * \
+                                  ((1 + Constants.AVERAGE_ASSET_RETURN) ** Constants.AVERAGE_ASSET_LIFESPAN)
         return accumulated_investments
 
     def _exploit_fitness(self):
-        accumulated_career_success = Constants.CAREER_SUCCESS_CONSTANT * (1.05 ** Constants.CAREER_SUCCESS_EXPONENTIAL)
+        accumulated_career_success = Constants.CAREER_SUCCESS_CONSTANT * \
+                                     (Constants.CAREER_SUCCESS_EXPONENTIAL ** self.fitness)
         return accumulated_career_success
-
-
 

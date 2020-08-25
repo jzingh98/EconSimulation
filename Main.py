@@ -1,9 +1,10 @@
-from Generation import Generation
+from Simulator import Simulator
 
-myGeneration = Generation()
-myGeneration.create_first_generation()
-print(myGeneration.agents_list)
 
-myGeneration._create_couples()
+def main():
+    simulation = Simulator()
+    simulation.run_simulation()
+    print(simulation)
 
-print(myGeneration.couples)
+main()
+

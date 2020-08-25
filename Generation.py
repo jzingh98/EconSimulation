@@ -4,10 +4,10 @@ import random as rand
 
 
 def _produce_zygote(parent1, parent2, id_counter):
-    gamete1 = parent1.provide_gamete
-    inheritance1 = parent1.provide_inheritance
-    gamete2 = parent2.provide_gamete
-    inheritance2 = parent2.provide_inheritance
+    gamete1 = parent1.provide_gamete()
+    inheritance1 = parent1.provide_inheritance()
+    gamete2 = parent2.provide_gamete()
+    inheritance2 = parent2.provide_inheritance()
     average_gamete_fitness = (gamete1 + gamete2) / 2
     environmental_randomness = (rand.randint(
         (-1 * Constants.ENVIRONMENTAL_RANDOMNESS_RANGE), Constants.ENVIRONMENTAL_RANDOMNESS_RANGE
@@ -24,6 +24,12 @@ class Generation:
         self.agents_list = []
         self.couples = []
 
+    def __str__(self):
+        id_array = []
+        for agent in self.agents_list:
+            id_array.append(str(agent))
+        return str(id_array)
+
     def create_first_generation(self):
         for i in range(self.population_size):
             new_agent = Agent(agent_id=i)
@@ -33,7 +39,10 @@ class Generation:
         self.agents_list = list_offspring
 
     def maturate_generation(self):
+        self._grow_old()
         self._create_couples()
+
+    def have_children(self):
         return self._have_children()
 
     def _grow_old(self):

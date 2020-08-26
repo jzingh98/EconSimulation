@@ -19,7 +19,8 @@ class Agent:
         self.assets_final = 0
 
     def __str__(self):
-        return str(self.id)
+        output = "ID: " + str(self.id) + "\nFitness: " + str(self.fitness) + "\nWealth: " + str(self.assets_final)
+        return output
 
     def provide_gamete(self):
         gamete_fitness = np.random.normal(self.fitness, Constants.GAMETE_FITNESS_STD, None)

@@ -9,10 +9,13 @@ class Simulator:
         self.generations_stack = []
 
     def __str__(self):
-        gen_array = []
+        counter = 0
+        output = ""
         for generation in self.generations_stack:
-            gen_array.append(str(generation))
-        return str(gen_array)
+            output += "\n\n\nGENERATION " + str(counter) + "\n---------------"
+            output += str(generation)
+            counter += 1
+        return str(output)
 
     def run_simulation(self):
         offspring = []

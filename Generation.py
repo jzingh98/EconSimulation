@@ -25,10 +25,10 @@ class Generation:
         self.couples = []
 
     def __str__(self):
-        id_array = []
+        output = ""
         for agent in self.agents_list:
-            id_array.append(str(agent))
-        return str(id_array)
+            output += "\n" + str(agent)
+        return str(output)
 
     def create_first_generation(self):
         for i in range(self.population_size):

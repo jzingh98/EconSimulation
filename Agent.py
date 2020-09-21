@@ -1,17 +1,10 @@
 import Constants
-import numpy as np
-
-
-def _default_fitness():
-    return np.random.normal(Constants.DEFAULT_FITNESS_MEAN, Constants.DEFAULT_FITNESS_STD, None)
-
-
-def _default_inheritance():
-    return np.random.normal(Constants.DEFAULT_FITNESS_MEAN, Constants.DEFAULT_FITNESS_STD, None)
+import random as rand
 
 
 class Agent:
-    def __init__(self, agent_id, fitness=_default_fitness(), inheritance=_default_inheritance()):
+    def __init__(self, agent_id, fitness, inheritance):
+        rand.seed(agent_id)
         self.id = agent_id
         self.fitness = fitness
         self.earnings = 0
@@ -23,7 +16,7 @@ class Agent:
         return output
 
     def provide_gamete(self):
-        gamete_fitness = np.random.normal(self.fitness, Constants.GAMETE_FITNESS_STD, None)
+        gamete_fitness = rand.gauss(self.fitness, Constants.GAMETE_FITNESS_STD)
         return gamete_fitness
 
     def provide_inheritance(self):
@@ -40,7 +33,6 @@ class Agent:
         return accumulated_investments
 
     def _exploit_fitness(self):
-        accumulated_career_success = Constants.CAREER_SUCCESS_CONSTANT * \
-                                     (Constants.CAREER_SUCCESS_EXPONENTIAL ** self.fitness)
+        accumulated_career_success = Constants.CAREER_SUCCESS_CONSTANT * (Constants.CAREER_SUCCESS_EXPONENTIAL ** self.fitness)
         return accumulated_career_success
 

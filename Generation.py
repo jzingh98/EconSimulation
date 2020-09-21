@@ -32,7 +32,9 @@ class Generation:
 
     def create_first_generation(self):
         for i in range(self.population_size):
-            new_agent = Agent(agent_id=i)
+            fitness = rand.gauss(Constants.DEFAULT_FITNESS_MEAN, Constants.DEFAULT_FITNESS_STD)
+            inheritance = rand.gauss(Constants.DEFAULT_INHERITANCE_MEAN, Constants.DEFAULT_INHERITANCE_STD)
+            new_agent = Agent(agent_id=i, fitness=fitness, inheritance=inheritance)
             self.agents_list.append(new_agent)
 
     def create_next_generation(self, list_offspring):

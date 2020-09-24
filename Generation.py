@@ -3,6 +3,7 @@ from Agent import Agent
 import random as rand
 
 
+
 def _produce_zygote(parent1, parent2, id_counter):
     gamete1 = parent1.provide_gamete()
     inheritance1 = parent1.provide_inheritance()

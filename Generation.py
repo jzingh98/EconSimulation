@@ -19,7 +19,6 @@ def _produce_zygote(parent1, parent2, id_counter):
     return new_child
 
 
-
 class Generation:
     def __init__(self):
         self.population_size = Constants.GENERATION_SIZE
